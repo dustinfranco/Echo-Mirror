@@ -30,12 +30,16 @@ def takePicture(inputFileName = ""):
 
 while(1):
     maxToMinScreenBrightness(0.01)
+    while(numberOfFaces > 0):
+        takePicture("/users/dustinfranco/desktop/temp_picture.png")
+        numberOfFaces = findNumberOfFaces("/users/dustinfranco/desktop/temp_picture.png", 1.6, False)
+        print("LEN FACES" + str(numberOfFaces))
     keyboard.press("0")
     keyboard.release("0")
     copy("/users/dustinfranco/desktop/new_picture.png","/users/dustinfranco/desktop/old_picture.png")
     
     numberOfFaces = 0;
-    while(numberOfFaces != 0 or numberOfFaces > 1):
+    while(numberOfFaces == 0 or numberOfFaces > 1):
         takePicture("/users/dustinfranco/desktop/new_picture.png")
         numberOfFaces = findNumberOfFaces("/users/dustinfranco/desktop/new_picture.png", 1.6, False)
         print("LEN FACES" + str(numberOfFaces))
