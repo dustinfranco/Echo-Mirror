@@ -1,7 +1,8 @@
 import cv2
 import os
 import time
-import facedetectection
+from shutil import copy
+from face_detect_cv3 import findNumberOfFaces
 from BrightnessControl import minToMaxScreenBrightness, maxToMinScreenBrightness
 currentPath = os.path.dirname(os.path.realpath(__file__))
 
@@ -12,7 +13,7 @@ keyboard = Controller()
 
 # Press and release space
 
-def takePicture():
+def takePicture(inputFileName = ""):
     camera_port = 1
     ramp_frames = 30
     camera = cv2.VideoCapture(camera_port)
@@ -23,7 +24,7 @@ def takePicture():
     for i in xrange(ramp_frames):
          get_image()
     camera_capture = get_image()
-    file = "/users/dustinfranco/desktop/new_picture.jpg"
+    file = inputFileName
     cv2.imwrite(file, camera_capture)
     return 
 
@@ -31,11 +32,16 @@ while(1):
     maxToMinScreenBrightness(0.01)
     keyboard.press("0")
     keyboard.release("0")
-    takePicture()
-    time.sleep(3)
+    copy("/users/dustinfranco/desktop/new_picture.png","/users/dustinfranco/desktop/old_picture.png")
+    
+    numberOfFaces = 0;
+    while(numberOfFaces != 0 or numberOfFaces > 1):
+        takePicture("/users/dustinfranco/desktop/new_picture.png")
+        numberOfFaces = findNumberOfFaces("/users/dustinfranco/desktop/new_picture.png", 1.6, False)
+        print("LEN FACES" + str(numberOfFaces))
     keyboard.press("0")
     keyboard.release("0")
-    time.sleep(3)
     minToMaxScreenBrightness(0.01)
+    time.sleep(5)
 
 
