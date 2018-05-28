@@ -117,8 +117,10 @@ int main(int argc, char **argv) {
     float brightness;
     if (argc > 1 && sscanf(argv[1], "%f", &brightness) == 1) {
         setDisplayBrightness(brightness);
-    } else {
-        printf("%f", getDisplayBrightness());
-    }
+    } 
+    //CHANGED THIS NOVEMBER
+    //else {
+        //printf("%f", getDisplayBrightness());
+    //}
     exit(0);
 }
