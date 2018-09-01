@@ -1,0 +1,4 @@
+streamer
+fswebcam
+v4l2ucp
+uvcdynctrl
