@@ -7,6 +7,11 @@ ffmpeg -i ~/echo-mirror/ubuntu/pics/out.png -vf transpose=2 ~/echo-mirror/ubuntu
 number_faces=`python face_detect_cv3.py`
 if [ "$number_faces" -gt 0 ]; then
   echo "faces found: $number_faces"
+  #fade screen on
+  for i in $(seq 0 0.01 1)
+  do
+    xrandr --output DP-1 --brightness $i
+  done
 else
   echo "no faces"
 fi
