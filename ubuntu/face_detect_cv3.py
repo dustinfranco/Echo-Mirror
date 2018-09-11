@@ -6,9 +6,8 @@ import time
 
 path = "/Library/emp/"
 
-def findNumberOfFaces(imageName, imageType, inputScaleFactor = 1.1, rectangle = False, sizeRatio = 1.0, minXFaceSize = 15, minYFaceSize = 15):
+def findNumberOfFaces(imageName, inputScaleFactor = 1.1, rectangle = False, sizeRatio = 1.0, minXFaceSize = 15, minYFaceSize = 15):
     m = int(round(time.time() * 1000))
-    print (m)
     image = cv2.imread("./pics/out.png")
 
     cascPath = "./haarcascade_frontalface_default.xml"
@@ -27,16 +26,15 @@ def findNumberOfFaces(imageName, imageType, inputScaleFactor = 1.1, rectangle = 
     # Draw a rectangle around the faces0
     if(rectangle):
         for (x, y, w, h) in faces:
-            cv2.namedWindow("test", cv2.WND_PROP_FULLSCREEN)
-            cv2.setWindowProperty("test", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+            #cv2.namedWindow("test", cv2.WND_PROP_FULLSCREEN)
+            #cv2.setWindowProperty("test", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
             cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
-            cv2.imshow("test", image)
-            key=cv2.waitKey(0)
-    #else:
-    #    for (x, y, w, h) in faces:
-    #        print("FACE SIZE: " + str(w-x) + "," + str(h-y))
+        cv2.imwrite("./pics/test.png", image)
+    else:
+        for (x, y, w, h) in faces:
+            print("FACE SIZE: " + str(w-x) + "," + str(h-y))
     m = int(round(time.time() * 1000)) - m
-    print ("it took " + str(m) + "ms to find faces")
+    print(len(faces))
     return len(faces)
 
 def changeProportionalSize(img, ratio = 0.5):
@@ -46,4 +44,7 @@ def changeProportionalSize(img, ratio = 0.5):
     img = cv2.resize(img, (newX, newY))
     cv2.imwrite("/Library/emp/resized.png", img)
     return img
-    
+
+
+findNumberOfFaces("./pics/out.png", rectangle = True)
+
